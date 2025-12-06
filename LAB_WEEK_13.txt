@@ -1,0 +1,30 @@
+Alya Azzahra
+00000109443
+
+1. Mengapa MVVM itu penting? File mana yang merepresentasikan Model, file mana yang merepresentasikan View, dan file mana yang merepresentasikan ViewModel?
+
+MVVM (Model-View-ViewModel) penting karena pola arsitektur ini memisahkan antarmuka pengguna (User Interface/UI) dari logika bisnis aplikasi. Pemisahan ini memungkinkan pengembang untuk memperbarui UI atau logika bisnis secara independen tanpa mengganggu komponen lain, serta mempermudah penambahan fitur baru dan pengujian kode (testing) .
+
+Berdasarkan proyek ini:
+- Model: Merepresentasikan lapisan data. File yang termasuk adalah Movie.kt (Entitas), MovieDao.kt, MovieDatabase.kt, dan MovieRepository.kt.
+
+- View: Merupakan UI yang menampilkan data. File yang termasuk adalah MainActivity.kt, activity_main.xml, DetailsActivity.kt, activity_details.xml, MovieAdapter.kt, dan view_movie_item.xml.
+
+- ViewModel: Bertugas mengambil data dari Model dan menyediakannya untuk View. File yang termasuk adalah MovieViewModel.kt.
+
+2. Pada Bagian 1, Anda mengimplementasikan Data Binding. Mengapa metode ini lebih efisien dibandingkan metode normal?
+
+Data Binding dianggap lebih efisien karena memungkinkan ViewModel untuk berkomunikasi langsung dengan View (layout XML) tanpa perlu menggunakan pemanggilan findViewById secara manual di dalam Activity. Hal ini mengurangi penulisan kode berulang (boilerplate code) dan mempermudah pengisian data ke dalam elemen UI secara otomatis melalui ekspresi di dalam file XML.
+
+3. Pada Bagian 2, Anda mengimplementasikan Pola Singleton. Mengapa pola ini penting?
+
+Pola Singleton penting karena memastikan bahwa hanya ada satu instance (objek tunggal) database yang dibuat selama aplikasi berjalan, meskipun diakses oleh banyak thread. Hal ini sangat krusial karena pembuatan instance database baru memakan banyak sumber daya (expensive). Selain itu, pola ini mencegah terjadinya Race Conditions dan menjamin validitas data agar tetap sinkron.
+
+
+4. Pada Bagian 2 & 3, Anda mengimplementasikan Pola Repository. Mengapa pola ini penting?
+
+Pola Repository penting karena berfungsi sebagai mediator yang menyinkronkan data aplikasi antara layanan web (API) dan database lokal (Room). Dengan pola ini, database lokal akan selalu diperbarui sesuai dengan data dari API, dan pengguna tetap dapat mengakses aplikasi serta melihat data yang tersimpan (cached) meskipun perangkat tidak memiliki koneksi internet .
+
+5. Pada Bagian 3, Anda mengimplementasikan WorkManager. Apakah ada cara lain untuk memperbarui database Anda dengan data terbaru selain menggunakan Worker?
+
+Ya, terdapat cara lain. Salah satu cara yang paling sederhana adalah dengan memanggil fungsi pengambilan data API secara langsung pada siklus hidup (lifecycle) Activity, misalnya di dalam onResume() atau onCreate(). Dengan cara ini, data akan diperbarui setiap kali pengguna membuka atau kembali ke aplikasi. Namun, cara tersebut mengharuskan aplikasi dalam keadaan aktif terbuka, berbeda dengan WorkManager yang dapat memperbarui data di latar belakang (background) secara terjadwal meskipun aplikasi sedang ditutup .
